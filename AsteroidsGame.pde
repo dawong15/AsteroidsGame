@@ -1,15 +1,66 @@
 //your variable declarations here
+Star[] writtenInTheStars=new Star[200];
 public void setup() 
 {
-  //your code here
+  size(500,500);
+  SpaceShip bilbo=new SpaceShip();
+  for(int i=0;i<nightSky.length;i++){
+    writtenInTheStars[i]=new Star(0);
+  }
 }
 public void draw() 
 {
-  //your code here
+  bilbo.show; 
+  for (int i=0;i<writtenInTheStars.length;i++)
+  {
+    writtenInTheStars.show();
+  }
 }
-class SpaceShip //extends Floater  
+class SpaceShip extends Floater  
 {   
-    //your code here
+  public Spaceship(){
+    Corners=4;
+    xCorners=new int[corners];
+    yCorners=new int[corners];
+    xCorners[0]=-8;
+    yCorners[0]=-8;
+    Corners[1]=16;
+    yCorners[2]=-8;
+    yCorners[2]=8;
+    public void move()
+    {
+      myCenterX+=myDirectionX;
+      myCenterY+=myDirectionY;
+      if (myCenterX>width){
+      myCenterX=0;
+    }
+    else if(myCenterX<0){
+      myCenterX=width;
+    }
+    if(myCenterX>height){
+      myCenterY=0;
+    }
+    else if(myCenterY<0){
+      myCenterY=height;
+    }
+    public void accelerate(double dAmount)
+    myDirectionx+=((dAmount)*Math.cos(dRadians));
+    myDirectionY+=((dAmount)*Math.sin(dRadians));
+    }
+    abstract public setX(int x){myX=x;}
+    abstract public getX(){return(int)myX;}
+    abstract public setY(int y){myY=y;}
+    abstract public getY(){return (int)myY;}
+    abstract public setDirectionX(int x){myCenterX=x;}
+    abstract public getDirectionX(){return (int)myCenterX;}
+    abstract public setDirectionY(int y){myCenterY=y;}
+    abstract public getDirectionY(){return (int)myCenterY;}
+    abstract public setPointDirection(int degrees){myPointDirection=degrees;}
+    abstract public getPointDirection(){return (int)degrees;}
+    
+  }
+    
+
 }
 abstract class Floater //Do NOT modify the Floater class! Make changes in the SpaceShip class 
 {   
@@ -88,3 +139,4 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
   }   
 } 
 
+abstract class stars{}
