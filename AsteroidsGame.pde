@@ -1,67 +1,61 @@
 //your variable declarations here
-Star[] writtenInTheStars=new Star[200];
+SpaceShip bilbo;
+Stars[]writtenInTheStars;
+
 public void setup() 
 {
   size(500,500);
-  SpaceShip bilbo=new SpaceShip();
-  for(int i=0;i<nightSky.length;i++){
-    writtenInTheStars[i]=new Star(0);
+  bilbo=new SpaceShip();
+  writtenInTheStars=new Stars[50];
+  for(int i=0;i<writtenInTheStars.length;i++){
+    writtenInTheStars[i]=new Stars();
   }
 }
 public void draw() 
 {
-  bilbo.show; 
+  background(0); 
   for (int i=0;i<writtenInTheStars.length;i++)
   {
-    writtenInTheStars.show();
+    writtenInTheStars[i].show();
   }
-}
+    bilbo.show();
+    bilbo.move();
+  }
+
 class SpaceShip extends Floater  
 {   
-  public Spaceship(){
-    Corners=4;
+  SpaceShip(){
+    corners=4;
     xCorners=new int[corners];
     yCorners=new int[corners];
+    myColor=255;
     xCorners[0]=-8;
     yCorners[0]=-8;
-    Corners[1]=16;
-    yCorners[2]=-8;
+    xCorners[1]=16;
+    yCorners[1]=0;
+    xCorners[2]=-8;
     yCorners[2]=8;
-    public void move()
-    {
-      myCenterX+=myDirectionX;
-      myCenterY+=myDirectionY;
-      if (myCenterX>width){
-      myCenterX=0;
-    }
-    else if(myCenterX<0){
-      myCenterX=width;
-    }
-    if(myCenterX>height){
-      myCenterY=0;
-    }
-    else if(myCenterY<0){
-      myCenterY=height;
-    }
-    public void accelerate(double dAmount)
-    myDirectionx+=((dAmount)*Math.cos(dRadians));
-    myDirectionY+=((dAmount)*Math.sin(dRadians));
-    }
-    abstract public setX(int x){myX=x;}
-    abstract public getX(){return(int)myX;}
-    abstract public setY(int y){myY=y;}
-    abstract public getY(){return (int)myY;}
-    abstract public setDirectionX(int x){myCenterX=x;}
-    abstract public getDirectionX(){return (int)myCenterX;}
-    abstract public setDirectionY(int y){myCenterY=y;}
-    abstract public getDirectionY(){return (int)myCenterY;}
-    abstract public setPointDirection(int degrees){myPointDirection=degrees;}
-    abstract public getPointDirection(){return (int)degrees;}
-    
+    myCenterX=250;
+    myCenterY=250;
+    myDirectionX=0;
+    myDirectionY=0;
+    myPointDirection=0;
   }
+
+   public void setX(int x){myCenterX = x;}
+   public int getX(){return (int)myCenterX;}   
+   public void setY(int y){myCenterY = y;}   
+   public int getY(){return (int)myCenterY;}   
+   public void setDirectionX(double x){myDirectionX = x;}   
+   public double getDirectionX(){return myDirectionX;}   
+   public void setDirectionY(double y){myDirectionY = y;}   
+   public double getDirectionY(){return myDirectionY;}   
+   public void setPointDirection(int degrees){myPointDirection = degrees;}   
+   public double getPointDirection(){return myPointDirection;} 
+    
+}
     
 
-}
 abstract class Floater //Do NOT modify the Floater class! Make changes in the SpaceShip class 
 {   
   protected int corners;  //the number of corners, a triangular floater has 3   
@@ -139,4 +133,32 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
   }   
 } 
 
-abstract class stars{}
+class Stars
+{
+  int myX, myY;
+  Stars(){
+    myX=(int)(Math.random()*500);
+    myY=(int)(Math.random()*500);
+  }
+  void show(){
+    noStroke();
+    fill(255);
+    ellipse(myX,myY,5,5);
+  }
+}
+public void keyPressed(){
+  if(key=='h'){
+    bilbo.setX((int)(Math.random()*500));
+    bilbo.setY((int)(Math.random()*500));
+    bilbo.setDirectionX(0);
+    bilbo.setDirectionY(0);
+  }
+  if(key=='w')
+    bilbo.accelerate(4);
+  if(key=='s')
+    bilbo.accelerate(-4);
+  if(key=='a')
+    bilbo.rotate(-30);
+  if(key=='d')
+    bilbo.rotate(30);
+}
