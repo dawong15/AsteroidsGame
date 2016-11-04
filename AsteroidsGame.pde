@@ -152,6 +152,7 @@ public void keyPressed(){
     bilbo.setY((int)(Math.random()*500));
     bilbo.setDirectionX(0);
     bilbo.setDirectionY(0);
+    bilbo.setPointDirection((int)(Math.random()*500));
   }
   if(key=='w')
     bilbo.accelerate(4);
