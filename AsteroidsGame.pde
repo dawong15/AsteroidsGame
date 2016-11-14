@@ -1,26 +1,35 @@
-//your variable declarations here
-SpaceShip bilbo;
-Stars[]writtenInTheStars;
 
+
+SpaceShip bilbo = new SpaceShip();
+Asteroid[] ast = new Asteroid[30];
+Stars[] writtenInTheStars = new Stars[200];
 public void setup() 
 {
   size(500,500);
-  bilbo=new SpaceShip();
-  writtenInTheStars=new Stars[50];
   for(int i=0;i<writtenInTheStars.length;i++){
     writtenInTheStars[i]=new Stars();
+  }
+  for(int j=0;j<ast.length;j++){
+    ast[j]=new Asteroid();
   }
 }
 public void draw() 
 {
   background(0); 
+  bilbo.show();
+  bilbo.move();
+
   for (int i=0;i<writtenInTheStars.length;i++)
   {
     writtenInTheStars[i].show();
   }
-    bilbo.show();
-    bilbo.move();
+
+
+  for(int j=0;j<ast.length;j++){
+    ast[j].show();
+    ast[j].move();
   }
+}
 
 class SpaceShip extends Floater  
 {   
@@ -28,7 +37,7 @@ class SpaceShip extends Floater
     corners=4;
     xCorners=new int[corners];
     yCorners=new int[corners];
-    myColor=255;
+    myColor=color(255);
     xCorners[0]=-8;
     yCorners[0]=-8;
     xCorners[1]=16;
@@ -54,7 +63,81 @@ class SpaceShip extends Floater
    public double getPointDirection(){return myPointDirection;} 
     
 }
-    
+
+class Stars
+{
+  int myX, myY;
+  Stars(){
+    myX=(int)(Math.random()*500);
+    myY=(int)(Math.random()*500);
+  }
+  void show(){
+    noStroke();
+    fill(255);
+    ellipse(myX,myY,5,5);
+  }
+}
+public void keyPressed(){
+  if(key=='h'){
+    bilbo.setX((int)(Math.random()*500));
+    bilbo.setY((int)(Math.random()*500));
+    bilbo.setDirectionX(0);
+    bilbo.setDirectionY(0);
+    bilbo.setPointDirection((int)(Math.random()*500));
+  }
+  if(key=='w')
+    bilbo.accelerate(4);
+  if(key=='s')
+    bilbo.accelerate(-4);
+  if(key=='a')
+    bilbo.rotate(-30);
+  if(key=='d')
+    bilbo.rotate(30);
+}
+public class Asteroid extends Floater{
+
+  private int rotSpd;
+  public Asteroid(){
+    rotSpd=2;
+    corners=6;
+    myColor=color(110,100,101);
+    xCorners=new int[corners];
+    yCorners=new int[corners];
+    xCorners[0]=-11;
+    yCorners[0]=-8;
+    xCorners[1]=7;
+    yCorners[1]=-8;
+    xCorners[2]=13;
+    yCorners[2]=13;
+    xCorners[3]=6;
+    yCorners[3]=10;
+    xCorners[4]=-11;
+    yCorners[4]=8;
+    xCorners[5]=-5;
+    yCorners[5]=0;
+    myCenterX = (int)(Math.random()*400);
+    myCenterY = (int)(Math.random()*400);
+    myDirectionX = (int)(Math.random()*5)-3;
+    myDirectionY = (int)(Math.random()*5)-3;
+    myPointDirection = 0;
+    rotSpd=(int)(Math.random()*4)-1;
+  }
+
+    public void setX(int x) {myCenterX = x;}
+    public int getX() {return (int)myCenterX;}   
+    public void setY(int y) {myCenterY = y;}   
+    public int getY(){return (int)myCenterY;}    
+    public void setDirectionX(double x){myDirectionX = x;}  
+    public double getDirectionX(){return myDirectionX;}   
+    public void setDirectionY(double y){myDirectionY = y;} 
+    public double getDirectionY(){return myDirectionY;}  
+    public void setPointDirection(int degrees){myPointDirection = degrees;}   
+    public double getPointDirection(){return myPointDirection;}
+    public void move() {
+    super.move();
+    rotate(rotSpd);
+      }
+}
 
 abstract class Floater //Do NOT modify the Floater class! Make changes in the SpaceShip class 
 {   
@@ -131,57 +214,4 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
     }   
     endShape(CLOSE);  
   }   
-} 
-
-class Stars
-{
-  int myX, myY;
-  Stars(){
-    myX=(int)(Math.random()*500);
-    myY=(int)(Math.random()*500);
-  }
-  void show(){
-    noStroke();
-    fill(255);
-    ellipse(myX,myY,5,5);
-  }
-}
-public void keyPressed(){
-  if(key=='h'){
-    bilbo.setX((int)(Math.random()*500));
-    bilbo.setY((int)(Math.random()*500));
-    bilbo.setDirectionX(0);
-    bilbo.setDirectionY(0);
-    bilbo.setPointDirection((int)(Math.random()*500));
-  }
-  if(key=='w')
-    bilbo.accelerate(4);
-  if(key=='s')
-    bilbo.accelerate(-4);
-  if(key=='a')
-    bilbo.rotate(-30);
-  if(key=='d')
-    bilbo.rotate(30);
-}
-//public class Asteroid extends Floater{
-  //public Asteroid(){
-    //corners=6;
-    //xCorners=new int[corners];
-    //yCorners=new int[corners];
-    //xCorners[0]=-11;
-    //yCorners[0]=-8;
-    //xCorners[1]=7;
-    //yCorners[1]=-8;
-    //xCorners[2]=13;
-    //yCorners[2]=13;
-    //xCorners[3]=6;
-    //yCorners[3]=10;
-    //xCorners[4]=-11;
-    //yCorners[4]=8;
-    //xCorners[5]=-5;
-    //yCorners[5]=0;
-  //}
-  //public void move(){
-    //rotate(
-  //}
-//}
+}      
