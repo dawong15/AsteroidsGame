@@ -1,7 +1,8 @@
 
 
 SpaceShip bilbo = new SpaceShip();
-Asteroid[] ast = new Asteroid[30];
+//Asteroid[] ast = new Asteroid[30];
+ArrayList <Asteroid> ast;
 Stars[] writtenInTheStars = new Stars[200];
 public void setup() 
 {
@@ -9,8 +10,12 @@ public void setup()
   for(int i=0;i<writtenInTheStars.length;i++){
     writtenInTheStars[i]=new Stars();
   }
-  for(int j=0;j<ast.length;j++){
-    ast[j]=new Asteroid();
+  //for(int j=0;j<ast.length;j++){
+    //ast[j]=new Asteroid();
+  //}
+  ast=new ArrayList <Asteroid>();
+  for(int j=0;j<20;j++){
+    ast.add(new Asteroid());
   }
 }
 public void draw() 
@@ -23,12 +28,15 @@ public void draw()
   {
     writtenInTheStars[i].show();
   }
-
-
-  for(int j=0;j<ast.length;j++){
-    ast[j].show();
-    ast[j].move();
+  for(int j=0;j<ast.size();j++){
+    ast.get(j).show();
+    ast.get(j).move();
   }
+
+  //for(int j=0;j<ast.length;j++){
+    //ast[j].show();
+    //ast[j].move();
+  //}
 }
 
 class SpaceShip extends Floater  
