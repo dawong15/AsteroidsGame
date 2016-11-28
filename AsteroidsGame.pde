@@ -1,5 +1,3 @@
-
-
 SpaceShip bilbo = new SpaceShip();
 //Asteroid[] ast = new Asteroid[30];
 ArrayList <Asteroid> ast;
@@ -31,13 +29,18 @@ public void draw()
   for(int j=0;j<ast.size();j++){
     ast.get(j).show();
     ast.get(j).move();
+    double distance=dist(bilbo.getX(),bilbo.getY(),ast.get(j).getX(),ast.get(j).getY());
+    if(distance<20){
+      ast.remove(j);
+      ast.add(new Asteroid());
+    }
   }
-
+}
   //for(int j=0;j<ast.length;j++){
     //ast[j].show();
     //ast[j].move();
   //}
-}
+
 
 class SpaceShip extends Floater  
 {   
@@ -223,3 +226,5 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
     endShape(CLOSE);  
   }   
 }      
+
+
