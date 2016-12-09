@@ -1,10 +1,14 @@
+
+
 SpaceShip bilbo = new SpaceShip();
 //Asteroid[] ast = new Asteroid[30];
 ArrayList <Asteroid> ast;
+ArrayList <Bullet>bang;
 Stars[] writtenInTheStars = new Stars[200];
 public void setup() 
 {
   size(500,500);
+  bang=new ArrayList <Bullet>();
   for(int i=0;i<writtenInTheStars.length;i++){
     writtenInTheStars[i]=new Stars();
   }
@@ -34,8 +38,23 @@ public void draw()
       ast.remove(j);
       ast.add(new Asteroid());
     }
+  
+  for(int k=0;k<bang.size();k++){
+    bang.get(k).show();
+    bang.get(k).move();
+    double distance2=dist(bang.get(k).getX(),bang.get(k).getY(),ast.get(j).getX(),ast.get(j).getY());
+    if(distance2<30){
+      bang.remove(k);
+      ast.remove(j);
+      ast.add(new Asteroid());
+      }
+      else if(bang.get(k).getX()>400||bang.get(k).getX()>400){
+        bang.remove(k);
+      }
+    }
   }
-}
+  }
+
   //for(int j=0;j<ast.length;j++){
     //ast[j].show();
     //ast[j].move();
@@ -104,6 +123,12 @@ public void keyPressed(){
     bilbo.rotate(-30);
   if(key=='d')
     bilbo.rotate(30);
+}
+public void mouseClicked(){
+  for(int i=0;i<1;i++)
+  {
+    bang.add(new Bullet(bilbo));
+  }
 }
 public class Asteroid extends Floater{
 
@@ -226,5 +251,3 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
     endShape(CLOSE);  
   }   
 }      
-
-
