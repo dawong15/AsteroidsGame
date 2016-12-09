@@ -1,4 +1,4 @@
-public class Bullet extends Floater
+ public class Bullet extends Floater
 { 
 private double dRadians;     
  Bullet(SpaceShip bilbo){
@@ -6,10 +6,12 @@ private double dRadians;
 
     myCenterX=bilbo.getX();
     myCenterY=bilbo.getY();
-    myDirectionX=5*Math.cos(dRadians)+bilbo.getDirectionX();
-    myDirectionY=5*Math.sin(dRadians)+bilbo.getDirectionY();
     myPointDirection=bilbo.getPointDirection();
     dRadians=myPointDirection*(Math.PI/180);
+    myDirectionX=5*Math.cos(dRadians)+bilbo.getDirectionX();
+    myDirectionY=5*Math.sin(dRadians)+bilbo.getDirectionY();
+    
+    
   }
 
 
@@ -35,6 +37,7 @@ private double dRadians;
 
   
   }   
+
 
 
 
